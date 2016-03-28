@@ -624,27 +624,25 @@ def voiceCommands():
 
         elif speech.said("no panel"):
             myShip.noPanel()
-    
+        
         elif speech.said("silent running"):
             myShip.toggleSilentRunning()
         elif speech.said("silent running on"):
             myShip.setSilentRunning(1)
         elif speech.said("silent running off"):
             myShip.setSilentRunning(0)
-        elif speech.said("request docking"):
-            myShip.requestDock()
-       	elif speech.said("deploy heat sink"):
+        elif speech.said("deploy heat sink"):
             myShip.deployHeatSink()
-       	elif speech.said("target wingman one"):
-       	    myShip.targetWingman1()
-       	elif speech.said("target wingman two"):
-       	    myShip.targetWingman2()
-       	elif speech.said("target wingman three"):
-       	    myShip.targetWingman3()
-       	elif speech.said("target wingmans target"):
-       	    myShip.targetWingmanTarget()
-       	elif speech.said("engage wingman nav lock"):
-       	    myShip.engageWingmanNavLock()
+        elif speech.said("target wingman one"):
+            myShip.targetWingman1()
+        elif speech.said("target wingman two"):
+            myShip.targetWingman2()
+        elif speech.said("target wingman three"):
+            myShip.targetWingman3()
+        elif speech.said("target wingmans target"):
+            myShip.targetWingmanTarget()
+        elif speech.said("engage wingman nav lock"):
+            myShip.engageWingmanNavLock()
 
 def androidHeadTracking():
     #Apply deadband filter to avoid drift
