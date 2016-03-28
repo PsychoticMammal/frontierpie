@@ -62,6 +62,7 @@ class Ship:
     scoop = 0
     hardpoints = 0
     panel = "none"
+    silentrun = 0
 
     def dump(self):
         diagnostics.debug("==============================")
@@ -71,6 +72,23 @@ class Ship:
         diagnostics.debug("scoo %d" % self.scoop)
         diagnostics.debug("hard %d" % self.hardpoints)
         diagnostics.debug("pane %s" % self.panel)
+        diagnostics.debug("sile %d" % self.silentrun)
+
+    def toggleSilentRunning(self):
+        if (self.silentrun == 0):
+            self.setSilentRunning(1)
+        else:
+            self.setSilentRunning(0)
+  		
+    def setSilentRunning(self,state):
+        if (self.silentrun != state):
+            KeyPress(Key.Delete)
+            if (state == 1):
+                wav("Cooling_SilentRunning")
+            else:
+                wav("Cooling_RestoringHeatSignature")
+            self.silentrun = state
+        self.dump()
 
     def leftPanel(self):
         if(self.panel != "left"):
@@ -356,6 +374,30 @@ class Ship:
     def systemMap(self):
         KeyPress(Key.O)
         wav("ModeSwitches_AccessingSystemMap")
+    
+    def deployHeatSink(self):
+    	KeyPress(Key.O)
+    	wav("Cooling_HeatsinkDeployed")
+    
+    def targetWingman1(self):
+    	KeyPress(Key.D7)
+    	wav("Targeting_Wingman1")
+    	
+    def targetWingman2(self):
+    	KeyPress(Key.D8)
+    	wav("Targeting_Wingman2")
+    	
+    def targetWingman3(self):
+        KeyPress(Key.D9)
+        wav("Targeting_Wingman3")
+    	
+    def targetWingmanTarget(self):
+        KeyPress(Key.D0)
+        wav("Targeting_WingmansTarget")
+    	
+    def engageWingmanNavLock(self):
+        KeyPress(Key.Minus)
+        wav("Targeting_WingmanNavLockEngaging")
 
 # ***********************************
 # a few pre-cooked responses
@@ -582,6 +624,27 @@ def voiceCommands():
 
         elif speech.said("no panel"):
             myShip.noPanel()
+    
+        elif speech.said("silent running"):
+            myShip.toggleSilentRunning()
+        elif speech.said("silent running on"):
+            myShip.setSilentRunning(1)
+        elif speech.said("silent running off"):
+            myShip.setSilentRunning(0)
+        elif speech.said("request docking"):
+            myShip.requestDock()
+       	elif speech.said("deploy heat sink"):
+            myShip.deployHeatSink()
+       	elif speech.said("target wingman one"):
+       	    myShip.targetWingman1()
+       	elif speech.said("target wingman two"):
+       	    myShip.targetWingman2()
+       	elif speech.said("target wingman three"):
+       	    myShip.targetWingman3()
+       	elif speech.said("target wingmans target"):
+       	    myShip.targetWingmanTarget()
+       	elif speech.said("engage wingman nav lock"):
+       	    myShip.engageWingmanNavLock()
 
 def androidHeadTracking():
     #Apply deadband filter to avoid drift
